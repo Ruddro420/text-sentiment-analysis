@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import { BsEmojiNeutralFill, BsEmojiSmileUpsideDownFill, BsFillEmojiAngryFill } from "react-icons/bs";
 import { Spinner } from 'react-bootstrap';
+import { Toaster, toast } from 'react-hot-toast';
 
 function App() {
   const [data, setData] = useState([])
@@ -22,7 +23,7 @@ function App() {
           </div>
         </div>
       </div>
-
+      <Toaster />
     </>
   )
 
@@ -58,11 +59,17 @@ function App() {
     }
 
     const analysesHandler = async () => {
-      fetchData()
+      if (input === '') {
+        toast.error("The field doesn't empty")
+      }
+      else {
+        fetchData()
+      }
+
     }
     return (
       <>
-        <textarea onChange={(e) => setInput(e.target.value)} className='form-control' cols="50" rows="10" placeholder='Enter Your Text Here'></textarea>
+        <textarea onChange={(e) => setInput(e.target.value)} className='form-control' cols="50" rows="10" placeholder='Enter Your Text Here' required></textarea>
         <button onClick={analysesHandler} className='btn btn-dark mt-5'>Analysis Data</button>
       </>
 
